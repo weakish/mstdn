@@ -22,9 +22,7 @@ uninstall:
 man: doc/${NAME}.1.txt
 
 doc/${NAME}.1.txt: doc/${NAME}.1
-	mandoc -c -O width=80 $? | col -b -p | cat -v | \
-	sed 's/M-bM-^_M-(/</g' | sed 's/M-bM-^_M-)/>/g' | \
-	sed 's/M-BM-//g' | sed 's/M-bM-^@M-^S/-/g' >$@
+	groff -Tascii -mandoc $? | col -b >$@
 
 readme: man
 	sed -n -e '/^NAME/!p;//q' README.md >.readme
